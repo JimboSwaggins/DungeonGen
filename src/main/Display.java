@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -17,11 +18,24 @@ public class Display {
 		
 		g.gridx = 0;
 		g.gridy = 0;
+		display.setColumns(50);
+		display.setRows(50);
+		display.setMinimumSize(new Dimension(500, 500));
+		mainWindow.add(display, g);
+	
 		
-		mainWindow.add(display);
 		
 		
 		mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		mainWindow.pack();
 		mainWindow.setVisible(true);
+	}
+	
+	public Display() {
+		createAndShowGUI();
+	}
+	
+	public static void main(String[] args) {
+		new Display();
 	}
 }
