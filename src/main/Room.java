@@ -30,6 +30,7 @@ public class Room {
 	}
 	
 	private void draw(Graphics g) {
+		
 		g.setColor(Color.GREEN);
 		g.fillRect(xLoc, yLoc, width, height);
 	}

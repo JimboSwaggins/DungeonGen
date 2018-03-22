@@ -6,7 +6,7 @@ public class Node {
 	private int xLoc;
 	private int yLoc;
 	
-	public Node() {
-		
+	public Node(Room connection) {
+		parent = connection;
 	}
 }
