@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class Room {
@@ -19,7 +21,17 @@ public class Room {
 	
 	public int getY() {return this.yLoc;}
 	
-	public Room(int x, int y, int width, int height) {
-		
+	public Room(Graphics g) {
+		width = (int)(Math.random() * 250);
+		height = (int)(Math.random() * 250);
+		xLoc = (int)(Math.random() * 250);
+		yLoc = (int)(Math.random() * 250);
+		this.draw(g);
 	}
+	
+	private void draw(Graphics g) {
+		g.setColor(Color.GREEN);
+		g.fillRect(xLoc, yLoc, width, height);
+	}
+	
 }

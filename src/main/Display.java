@@ -14,18 +14,21 @@ public class Display {
 	public JPanel drawBoard;
 	private BufferedImage image;
 
+
+	public static final int HEIGHT = 500;
+	public static final int WIDTH = 500;
 	/**
 	 * Creates and shows the GUI
 	 */
 	public void createAndShowGUI() {
+		
 		JFrame mainWindow = new JFrame();
 		//mainWindow.setLayout(new GridBagLayout());
 		//GridBagConstraints g = new GridBagConstraints();
-		mainWindow.setSize(500,  500);
+		mainWindow.setSize(HEIGHT, WIDTH);
 		mainWindow.setVisible(true);
-		
 		drawBoard = new JPanel();
-		drawBoard.setSize(500, 500);
+		drawBoard.setSize(HEIGHT, WIDTH);
 		mainWindow.add(drawBoard);
 		drawBoard.setVisible(true);
 	
@@ -58,9 +61,12 @@ public class Display {
 		g2.setColor(Color.BLUE);
 		g2.fillRect(0, 0, 1280, 720);
 		
-		g2.setColor(Color.RED);
-		g2.fillRect(10, 10, 100, 100);
+		g2.setColor(Color.GREEN);
+		Room e = new Room(g2);
+		//g2.setColor(Color.RED);
+		//g2.fillRect(10, 10, 100, 100);
 		g2 = drawBoard.getGraphics();
 		g2.drawImage(image, 0, 0, null);
+		
 	}
 }
