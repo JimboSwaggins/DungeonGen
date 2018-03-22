@@ -13,6 +13,8 @@ public class Room {
 	
 	private static ArrayList<Node> exits;
 	
+	private int size  = 89;
+	
 	public int getWidth() {return this.width;}
 	
 	public int getHeight() {return this.height;}
