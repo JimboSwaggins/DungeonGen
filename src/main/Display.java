@@ -13,6 +13,10 @@ import javax.swing.WindowConstants;
 public class Display {
 	public JPanel drawBoard;
 	private BufferedImage image;
+
+	/**
+	 * Creates and shows the GUI
+	 */
 	public void createAndShowGUI() {
 		JFrame mainWindow = new JFrame();
 		//mainWindow.setLayout(new GridBagLayout());
@@ -39,13 +43,14 @@ public class Display {
 		createAndShowGUI();
 		gameDraw();
 	}
-	
 	public static void main(String[] args) {
 		new Display();
 		
 	}
-	
-	
+
+	/**
+	 * Draws the game
+	 */
 	private void gameDraw(){
 		image  = new BufferedImage(1280, 720, BufferedImage.TYPE_INT_RGB);
 		Graphics g2  = image.getGraphics();
