@@ -19,7 +19,7 @@ public class Room {
 	
 	public int getY() {return this.yLoc;}
 	
-	public Room() {
+	public Room(int x, int y, int width, int height) {
 		
 	}
 }
