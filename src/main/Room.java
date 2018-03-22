@@ -27,6 +27,8 @@ public class Room {
 		xLoc = (int)(Math.random() * 250);
 		yLoc = (int)(Math.random() * 250);
 		this.draw(g);
+		
+		
 	}
 	
 	private void draw(Graphics g) {
