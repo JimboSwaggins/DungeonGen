@@ -12,9 +12,7 @@ public class Room {
 	private int yLoc;
 	
 	private static ArrayList<Node> exits;
-	
-	private int size  = 89;
-	
+
 	public int getWidth() {return this.width;}
 	
 	public int getHeight() {return this.height;}
@@ -23,19 +21,33 @@ public class Room {
 	
 	public int getY() {return this.yLoc;}
 	
-	public Room(Graphics g) {
-		width = (int)(Math.random() * 250);
-		height = (int)(Math.random() * 250);
-		xLoc = (int)(Math.random() * 250);
-		yLoc = (int)(Math.random() * 250);
+	public Room(Graphics g){
+		width = RandomGenerator.randomInteger(40, 175);
+		height = RandomGenerator.randomInteger(40, 175);
+		xLoc = RandomGenerator.randomInteger(20, 325);
+		yLoc = RandomGenerator.randomInteger(20, 325);
 		this.draw(g);
-		
-		
+	}
+	
+	public Room(Graphics g, int x, int y) {
+		width = RandomGenerator.randomInteger(40, 175);
+		height = RandomGenerator.randomInteger(40, 175);
+		xLoc = x;
+		yLoc = y;
+		this.draw(g);
+	}
+	
+	public Room(Graphics g, int x, int y, int h, int w) {
+		width = w;
+		height = h;
+		xLoc = x;
+		yLoc = y;
+		this.draw(g);
 	}
 	
 	private void draw(Graphics g) {
 		
-		g.setColor(Color.GREEN);
+		g.setColor(Color.RED);
 		g.fillRect(xLoc, yLoc, width, height);
 	}
 	
