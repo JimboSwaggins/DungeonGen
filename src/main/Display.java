@@ -20,7 +20,7 @@ public class Display {
 
 	
 	private Graphics g2;
-	private ArrayList<Room> listOfRooms;
+	
 	
 
 	public static final int HEIGHT = 500;
@@ -66,7 +66,6 @@ public class Display {
 	
 	public Display(){
 		createAndShowGUI();
-		listOfRooms = new ArrayList<Room>();
 		gameDraw();
 	}
 	public static void main(String[] args){
@@ -81,7 +80,8 @@ public class Display {
 	private void gameDraw(){
 		image  = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g2  = image.getGraphics();
-		Room e = new Room(g2);
+		Room.makeMultipleRooms(g2, 4);
+		Room.drawAllRooms(g2);
 		g2 = drawBoard.getGraphics();
 		g2.drawImage(image, 0, 0, null);
 		
