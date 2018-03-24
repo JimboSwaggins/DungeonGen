@@ -17,12 +17,26 @@ public class Room {
 		
 	public ArrayList<Node> getExits(){return this.exits;}
 	
-	
-	
 	public int getWidth() {return this.width;}
 	public int getHeight() {return this.height;}
 	public int getX() {return this.xLoc;}	
 	public int getY() {return this.yLoc;}
+	
+	
+	/**
+	 * Returns an array with the corners of the room as points.
+	 * @return An array containing the corners of the room, as points starting from the upper left corner and rotating around clockwise.
+	 */
+	public Point[] getCorners() {
+		Point[] temp = new Point[4];
+		
+		temp[0] = new Point(this.getX(), this.getY());
+		temp[1] = new Point(this.getMaxX(), this.getY());
+		temp[2] = new Point(this.getMaxX(), this.getMaxY());
+		temp[3] = new Point(this.getX(), this.getMaxY());
+		return temp;
+	}
+	
 	
 	public int getMaxX() {
 		return this.xLoc + this.width;
@@ -42,7 +56,7 @@ public class Room {
 			while(true) {
 				int dx = RandomGenerator.randomInteger(20, 325);
 				int dy = RandomGenerator.randomInteger(20, 325);
-				int dc = RandomGenerator.randomInteger(40, 175);
+				int dh = RandomGenerator.randomInteger(40, 175);
 				int dw = RandomGenerator.randomInteger(40, 175);
 				if(listOfRooms.size() != 0) {
 					for(Room toCheck:listOfRooms) {
@@ -51,13 +65,20 @@ public class Room {
 						if(toCheck.getX() <= dx && dx <= toCheck.getMaxX() && toCheck.getY() <= dy && dy <= toCheck.getMaxY()) {
 							a = false;
 							break;
-						}else {
+						}
+						int ww = dx + dw;
+						int hh = dy + dh;
+						if(toCheck.getX() <= ww && ww <= toCheck.getMaxX() && toCheck.getY() <= hh && hh <= toCheck.getMaxY()) {
+							a = false;
+							break;
+						}
+						else {
 							a = true;
 						}
 					}
 				}
 				if(a) {
-					listOfRooms.add(new Room(g, dx, dy, dc, dw));
+					listOfRooms.add(new Room(g, dx, dy, dh, dw));
 					a = false;
 					break;
 				}
@@ -115,7 +136,6 @@ public class Room {
 	}
 	
 	private void draw(Graphics g) {
-		
 		g.setColor(Color.RED);
 		g.fillRect(xLoc, yLoc, width, height);
 	}

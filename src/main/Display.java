@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,8 +20,6 @@ public class Display {
 	
 	private Graphics g2;
 	
-	
-
 	public static final int HEIGHT = 500;
 	public static final int WIDTH = 750;
 	/**
@@ -75,7 +72,7 @@ public class Display {
 	
 	/**
 	 * Draws the game
-	 * @throws ThisFunctionCanNotHandleNegativeParameters 
+	 * 
 	 */
 	private void gameDraw(){
 		image  = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
