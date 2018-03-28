@@ -3,9 +3,10 @@ package main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
-public class Room {
+public class Room{
 	private int width;
 	private int height;
 	
@@ -21,8 +22,11 @@ public class Room {
 	public int getHeight() {return this.height;}
 	public int getX() {return this.xLoc;}	
 	public int getY() {return this.yLoc;}
+	private Rectangle area;
 	
-	
+	public Rectangle getArea() {
+		return new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+	}
 	/**
 	 * Returns an array with the corners of the room as points.
 	 * @return An array containing the corners of the room, as points starting from the upper left corner and rotating around clockwise.
@@ -52,38 +56,40 @@ public class Room {
 	public static void makeMultipleRooms(Graphics g, int numOfRooms) {
 		listOfRooms.clear();
 		for(int roomsMade = 0; roomsMade < numOfRooms; roomsMade++) {
-			boolean a  = true;
-			while(true) {
-				int dx = RandomGenerator.randomInteger(20, 325);
-				int dy = RandomGenerator.randomInteger(20, 325);
-				int dh = RandomGenerator.randomInteger(40, 175);
-				int dw = RandomGenerator.randomInteger(40, 175);
-				if(listOfRooms.size() != 0) {
-					for(Room toCheck:listOfRooms) {
-					//if otherMinx < x < other maxX
-					//if otherMinY < y < other MaxY
-						if(toCheck.getX() <= dx && dx <= toCheck.getMaxX() && toCheck.getY() <= dy && dy <= toCheck.getMaxY()) {
-							a = false;
-							break;
+			int dx = 10;
+			int dy = 100;
+			int dh = 50;
+			int dw = 120;
+			boolean hasRolledSuccessfully = false;
+			while(!hasRolledSuccessfully) {
+				
+					if(listOfRooms.size() == 0) {
+						break;
+					}
+					if(listOfRooms.size() > 1) {
+						@SuppressWarnings("unused")
+						int i = 99;
+						i++;
+					}
+					for(Room e:listOfRooms) {
+						if(!hasRolledSuccessfully) {
+							dx = RandomGenerator.randomInteger(20, 325);
+							dy = RandomGenerator.randomInteger(20, 325);
+							dh = RandomGenerator.randomInteger(dy, dy + 100);
+							dw = RandomGenerator.randomInteger(dx, dx + 100);
 						}
-						int ww = dx + dw;
-						int hh = dy + dh;
-						if(toCheck.getX() <= ww && ww <= toCheck.getMaxX() && toCheck.getY() <= hh && hh <= toCheck.getMaxY()) {
-							a = false;
-							break;
-						}
-						else {
-							a = true;
+						if(new Rectangle(dx, dy, dh, dw).intersects(e.getArea())) {
+							hasRolledSuccessfully = false;
+							break; 
+						}else {
+							hasRolledSuccessfully = true;
 						}
 					}
-				}
-				if(a) {
-					listOfRooms.add(new Room(g, dx, dy, dh, dw));
-					a = false;
+				if(hasRolledSuccessfully) {
 					break;
 				}
-				
 			}
+			listOfRooms.add(new Room(g, dx, dy, dh, dw));
 		}
 	}
 	
@@ -101,6 +107,7 @@ public class Room {
 		height = RandomGenerator.randomInteger(40, 175);
 		xLoc = RandomGenerator.randomInteger(20, 325);
 		yLoc = RandomGenerator.randomInteger(20, 325);
+		area = new Rectangle(xLoc, yLoc, width, height);
 		this.draw(g);
 	}
 	
@@ -115,6 +122,8 @@ public class Room {
 		height = RandomGenerator.randomInteger(40, 175);
 		xLoc = x;
 		yLoc = y;
+		
+		area = new Rectangle(x, y, width, height);
 		this.draw(g);
 	}
 	
@@ -132,12 +141,14 @@ public class Room {
 		height = h;
 		xLoc = x;
 		yLoc = y;
+		area = new Rectangle(x, y, w, h);
 		this.draw(g);
 	}
 	
 	private void draw(Graphics g) {
 		g.setColor(Color.RED);
-		g.fillRect(xLoc, yLoc, width, height);
+		g.fillRect(width, height, xLoc, yLoc);
+		
 	}
 	
 }
