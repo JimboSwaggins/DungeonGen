@@ -24,7 +24,6 @@ public class Display {
 	public static final int WIDTH = 750;
 	/**
 	 * Creates and shows the GUI
-	 * @throws ThisFunctionCanNotHandleNegativeParameters 
 	 */
 	public void createAndShowGUI(){
 		
@@ -76,12 +75,6 @@ public class Display {
 		image  = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g2  = image.getGraphics();
 		Room.makeMultipleRooms(g2, 12);
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		Room.drawAllRooms(g2);
 		g2 = drawBoard.getGraphics();
 		g2.drawImage(image, 0, 0, null);

@@ -33,7 +33,24 @@ public class Node {
 	}
 	
 	
+	public void growNode() {
+		int whichSide = RandomGenerator.randomInteger(3);
+		switch(whichSide) {
+		case 0:
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3: 
+			break;
+		default:
+			System.out.println("Error, cannot find a side");
+			break;
+		}
+	}
 	public Node(Room connection) {
 		parent = connection;
+		parent.exits.add(this);
 	}
 }

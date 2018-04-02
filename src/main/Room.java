@@ -6,6 +6,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+
+
 public class Room{
 	private int width;
 	private int height;
@@ -13,7 +15,7 @@ public class Room{
 	private int xLoc;
 	private int yLoc;
 	
-	private ArrayList<Node> exits;
+	public ArrayList<Node> exits;
 	private static ArrayList<Room> listOfRooms = new ArrayList<Room>();
 		
 	public ArrayList<Node> getExits(){return this.exits;}
@@ -23,6 +25,8 @@ public class Room{
 	public int getX() {return this.xLoc;}	
 	public int getY() {return this.yLoc;}
 	private Rectangle area;
+	
+	
 	
 	public Rectangle getArea() {
 		return new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
