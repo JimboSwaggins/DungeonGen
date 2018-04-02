@@ -24,6 +24,7 @@ public class Room{
 	public int getHeight() {return this.height;}
 	public int getX() {return this.xLoc;}	
 	public int getY() {return this.yLoc;}
+	@SuppressWarnings("unused")
 	private Rectangle area;
 	
 	
@@ -54,7 +55,7 @@ public class Room{
 		while(listOfRooms.size()  < numOfRooms) {
 			int randomX = RandomGenerator.randomInteger(Display.WIDTH/2);
 			int randomY = RandomGenerator.randomInteger(Display.HEIGHT/2);
-			boolean jeb = true;
+			boolean isValidLocation = true;
 			if(listOfRooms.size() == 0 ) {
 				int randomWidth = 50;
 				int randomHeight = 50;
@@ -64,26 +65,26 @@ public class Room{
 				continue;
 			}for(Room e:listOfRooms) {
 				if(e.getArea().contains(new Point(randomX, randomY))) {
-					jeb = false;
+					isValidLocation = false;
 					
 				}	
-			}if(!jeb) {
+			}if(!isValidLocation) {
 				continue;
 			}
 			int rWidth = 0;
 			int rHeight = 0;
-			while(true) {
+			while(isValidLocation) {
 				rWidth = RandomGenerator.randomInteger(Display.HEIGHT/4) + 10;
 				rHeight = RandomGenerator.randomInteger(Display.WIDTH/4) + 10;
 				for(Room testing:listOfRooms) {
 					if(testing.getArea().intersects(new Rectangle(randomX, randomY, rWidth, rHeight))) {
-						jeb = false;
+						isValidLocation = false;
 						break;
 					}else {
-						jeb = true;
+						isValidLocation = true;
 					}
 				}
-				if(jeb) {
+				if(isValidLocation) {
 					break;
 				}
 			}
