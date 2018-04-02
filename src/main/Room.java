@@ -31,15 +31,6 @@ public class Room{
 	 * Returns an array with the corners of the room as points.
 	 * @return An array containing the corners of the room, as points starting from the upper left corner and rotating around clockwise.
 	 */
-	public Point[] getCorners() {
-		Point[] temp = new Point[4];
-		
-		temp[0] = new Point(this.getX(), this.getY());
-		temp[1] = new Point(this.getMaxX(), this.getY());
-		temp[2] = new Point(this.getMaxX(), this.getMaxY());
-		temp[3] = new Point(this.getX(), this.getMaxY());
-		return temp;
-	}
 	
 	
 	public int getMaxX() {
@@ -55,41 +46,45 @@ public class Room{
 	
 	public static void makeMultipleRooms(Graphics g, int numOfRooms) {
 		listOfRooms.clear();
-		for(int roomsMade = 0; roomsMade < numOfRooms; roomsMade++) {
-			int dx = 10;
-			int dy = 100;
-			int dh = 50;
-			int dw = 120;
-			boolean hasRolledSuccessfully = false;
-			while(!hasRolledSuccessfully) {
+		
+		while(listOfRooms.size()  < numOfRooms) {
+			int randomX = RandomGenerator.randomInteger(Display.WIDTH/2);
+			int randomY = RandomGenerator.randomInteger(Display.HEIGHT/2);
+			boolean jeb = true;
+			if(listOfRooms.size() == 0 ) {
+				int randomWidth = 50;
+				int randomHeight = 50;
 				
-					if(listOfRooms.size() == 0) {
+				Room e = new Room(g, randomX, randomY, randomWidth, randomHeight);
+				listOfRooms.add(e);
+				continue;
+			}for(Room e:listOfRooms) {
+				if(e.getArea().contains(new Point(randomX, randomY))) {
+					jeb = false;
+					
+				}	
+			}if(!jeb) {
+				continue;
+			}
+			int rWidth = 0;
+			int rHeight = 0;
+			while(true) {
+				rWidth = RandomGenerator.randomInteger(Display.HEIGHT/4) + 10;
+				rHeight = RandomGenerator.randomInteger(Display.WIDTH/4) + 10;
+				for(Room testing:listOfRooms) {
+					if(testing.getArea().intersects(new Rectangle(randomX, randomY, rWidth, rHeight))) {
+						jeb = false;
 						break;
+					}else {
+						jeb = true;
 					}
-					if(listOfRooms.size() > 1) {
-						@SuppressWarnings("unused")
-						int i = 99;
-						i++;
-					}
-					for(Room e:listOfRooms) {
-						if(!hasRolledSuccessfully) {
-							dx = RandomGenerator.randomInteger(20, 325);
-							dy = RandomGenerator.randomInteger(20, 325);
-							dh = RandomGenerator.randomInteger(dy, dy + 100);
-							dw = RandomGenerator.randomInteger(dx, dx + 100);
-						}
-						if(new Rectangle(dx, dy, dh, dw).intersects(e.getArea())) {
-							hasRolledSuccessfully = false;
-							break; 
-						}else {
-							hasRolledSuccessfully = true;
-						}
-					}
-				if(hasRolledSuccessfully) {
+				}
+				if(jeb) {
 					break;
 				}
 			}
-			listOfRooms.add(new Room(g, dx, dy, dh, dw));
+			Room e = new Room(g, randomX, randomY, rWidth, rHeight);
+			listOfRooms.add(e);
 		}
 	}
 	
@@ -136,7 +131,7 @@ public class Room{
 	 * @param h The Height of the room.
 	 * @param w The Width of the room.
 	 */
-	public Room(Graphics g, int x, int y, int h, int w) {
+	public Room(Graphics g, int x, int y, int w, int h) {
 		width = w;
 		height = h;
 		xLoc = x;
@@ -147,8 +142,7 @@ public class Room{
 	
 	private void draw(Graphics g) {
 		g.setColor(Color.RED);
-		g.fillRect(width, height, xLoc, yLoc);
-		
+		g.fillRect(xLoc, yLoc, width, height);
 	}
 	
 }

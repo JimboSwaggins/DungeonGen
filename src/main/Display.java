@@ -52,18 +52,16 @@ public class Display {
 		Draw.setMaximumSize(new Dimension(40, 40));
 		Draw.setText("Generate New Dungeon");
 		drawBoard.add(Draw);
+		
 		mainWindow.setResizable(false);
 		mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		mainWindow.setVisible(true);
-		
-		gameDraw();
 
 	}
 	
 	public Display(){
 		createAndShowGUI();
-		gameDraw();
 	}
 	public static void main(String[] args){
 		new Display();
@@ -77,7 +75,13 @@ public class Display {
 	private void gameDraw(){
 		image  = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g2  = image.getGraphics();
-		Room.makeMultipleRooms(g2, 4);
+		Room.makeMultipleRooms(g2, 12);
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Room.drawAllRooms(g2);
 		g2 = drawBoard.getGraphics();
 		g2.drawImage(image, 0, 0, null);
