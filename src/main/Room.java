@@ -60,24 +60,31 @@ public class Room{
 				int randomWidth = 50;
 				int randomHeight = 50;
 				
-				Room e = new Room(g, randomX, randomY, randomWidth, randomHeight);
-				listOfRooms.add(e);
+				Room roomX = new Room(g, randomX, randomY, randomWidth, randomHeight);
+				listOfRooms.add(roomX);
 				continue;
-			}for(Room e:listOfRooms) {
+			}
+			
+			for(Room e:listOfRooms) {
 				if(e.getArea().contains(new Point(randomX, randomY))) {
 					isValidLocation = false;
-					
 				}	
 			}if(!isValidLocation) {
 				continue;
 			}
 			int rWidth = 0;
 			int rHeight = 0;
-			while(isValidLocation) {
+			while(true) {
 				rWidth = RandomGenerator.randomInteger(Display.HEIGHT/4) + 10;
 				rHeight = RandomGenerator.randomInteger(Display.WIDTH/4) + 10;
+				
+				randomY = RandomGenerator.randomInteger(Display.HEIGHT/2);
+				randomX = RandomGenerator.randomInteger(Display.WIDTH/2);
+						
 				for(Room testing:listOfRooms) {
+					System.out.println("checking room " + rWidth +"  "+ rHeight +"  "+ randomX +"  "+ randomY);
 					if(testing.getArea().intersects(new Rectangle(randomX, randomY, rWidth, rHeight))) {
+
 						isValidLocation = false;
 						break;
 					}else {
