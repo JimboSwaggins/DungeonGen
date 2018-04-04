@@ -147,6 +147,7 @@ public class Room{
 		xLoc = x;
 		yLoc = y;
 		area = new Rectangle(x, y, w, h);
+		exits = new ArrayList<Node>();
 		exits.add(new Node(this));//null pointer exception here
 		this.draw(g);
 	}
