@@ -11,10 +11,8 @@ public class Node {
 	
 	private boolean isConnected = false;
 	
-	
 	private int xLoc;
 	private int yLoc;
-	
 	
 	public Room getParent() {return this.parent;}
 	public int getXLoc() {return this.xLoc;}
@@ -26,6 +24,7 @@ public class Node {
 	 * @param target The node that will connect to this node.
 	 * @param g The Graphics unit that will be utilized.
 	 */
+	
 	public void connectNodes(Node target, Graphics g) {
 		g.setColor(Color.BLUE);
 		g.drawLine(this.xLoc, this.yLoc, target.getXLoc(), target.getYLoc());
@@ -33,24 +32,50 @@ public class Node {
 	}
 	
 	
-	public void growNode() {
-		int whichSide = RandomGenerator.randomInteger(3);
+	public void growNode(Graphics g) {
+		/*int whichSide = RandomGenerator.randomInteger(3);
+		int xy = -1; //0 is x axis, 1 is y axis
 		switch(whichSide) {
-		case 0:
-			break;
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3: 
-			break;
-		default:
-			System.out.println("Error, cannot find a side");
-			break;
-		}
+			case 0: xy = 1; break;
+			case 1: xy = 0; break;
+			case 2: xy = 1; break;
+			case 3: xy = 0; break;
+			default: System.out.println("Error, cannot find a side"); break;
+		}*/
+		
+		 for (Room room: Room.listOfRooms){
+			 int minXX = parent.getX() > room.getX() ? parent.getX() : room.getX();
+			 int maxXX = parent.getMaxX() > room.getMaxX() ? room.getMaxX() : parent.getMaxX();
+			 int minYY = parent.getY() > room.getY() ? parent.getY() : room.getY();
+			 int maxYY = parent.getMaxY() > room.getMaxY() ? room.getMaxY() : parent.getMaxY();
+			 
+			 if(minXX <= maxXX){
+				 this.xLoc = minXX;
+				 this.yLoc = parent.getMaxY();
+				 connectNodes(new Node(room),g);
+			//for loop to check if other rooms intersect with this
+			 }else if(minYY <= maxYY){
+				 this.yLoc = minYY;
+				 this.xLoc = parent.getMaxX();
+				 connectNodes(new Node(room),g);
+			 }else{
+				 //here, the rooms have no matching stuff
+				 //if this is true for all other rooms we have a problem but for now dw
+			 }
+		 }
 	}
+	
 	public Node(Room connection) {
 		parent = connection;
-		parent.exits.add(this);
+		nodeList.add(this);
+		parent.exits.add(this);//null pointer exception
 	}
 }
+
+//start with node
+//draw line to closest other node without current connection
+///exception: path intersects room mid-path
+///if so, find a path that will not intersect
+
+//check if line intersects another room
+//alt: find x or y coordinate that will only intersect with one other room

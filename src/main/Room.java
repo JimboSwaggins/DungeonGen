@@ -16,9 +16,9 @@ public class Room{
 	private int yLoc;
 	
 	public ArrayList<Node> exits;
-	private static ArrayList<Room> listOfRooms = new ArrayList<Room>();
+	public static ArrayList<Room> listOfRooms = new ArrayList<Room>();
 		
-	public ArrayList<Node> getExits(){return this.exits;}
+	public ArrayList<Node> getExits(){return exits;}
 	
 	public int getWidth() {return this.width;}
 	public int getHeight() {return this.height;}
@@ -26,8 +26,6 @@ public class Room{
 	public int getY() {return this.yLoc;}
 	@SuppressWarnings("unused")
 	private Rectangle area;
-	
-	
 	
 	public Rectangle getArea() {
 		return new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
@@ -129,7 +127,7 @@ public class Room{
 		height = RandomGenerator.randomInteger(40, 175);
 		xLoc = x;
 		yLoc = y;
-		
+		exits.add(new Node(this));
 		area = new Rectangle(x, y, width, height);
 		this.draw(g);
 	}
@@ -149,12 +147,18 @@ public class Room{
 		xLoc = x;
 		yLoc = y;
 		area = new Rectangle(x, y, w, h);
+		exits.add(new Node(this));//null pointer exception here
 		this.draw(g);
 	}
 	
 	private void draw(Graphics g) {
 		g.setColor(Color.RED);
 		g.fillRect(xLoc, yLoc, width, height);
+	}
+	
+	
+	public void connectRooms(Graphics g){
+		getExits().get(0).growNode(g);
 	}
 	
 }

@@ -76,6 +76,9 @@ public class Display {
 		g2  = image.getGraphics();
 		Room.makeMultipleRooms(g2, 12);
 		Room.drawAllRooms(g2);
+		for(Room room: Room.listOfRooms) {
+			room.connectRooms(g2);
+		}
 		g2 = drawBoard.getGraphics();
 		g2.drawImage(image, 0, 0, null);
 		
