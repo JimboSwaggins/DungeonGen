@@ -11,7 +11,9 @@ public class RandomGenerator {
 		return (int)(Math.random() * range);
 	}
 	
-	
+	 public static boolean getRandomBoolean() {
+	       return Math.random() < 0.5;
+	  }
 	/**
 	 * Returns a random positive whole number between the minimum and maximum values specified.
 	 * @param min The lowest possible value

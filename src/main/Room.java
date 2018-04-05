@@ -24,25 +24,39 @@ public class Room{
 	public int getHeight() {return this.height;}
 	public int getX() {return this.xLoc;}	
 	public int getY() {return this.yLoc;}
-	@SuppressWarnings("unused")
-	private Rectangle area;
+
 	
+	
+	/**
+	 * Returns a rectangle with the same area as the room. Can be used to check for intersections.
+	 * @return A rectangle with the same area as the room.
+	 */
 	public Rectangle getArea() {
 		return new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
 	}
+	
+	
 	/**
-	 * Returns an array with the corners of the room as points.
-	 * @return An array containing the corners of the room, as points starting from the upper left corner and rotating around clockwise.
+	 * Returns x-coordinate of the right side of the room.
+	 * @return x-coordinate of the right side of the room.
 	 */
-	
-	
 	public int getMaxX() {
 		return this.xLoc + this.width;
 	}
 	
+	
+	/**
+	 * Returns the y-coordinate of the bottom of the room.
+	 * @return the y-coordinate of the bottom of the room.
+	 */
 	public int getMaxY() {
 		return this.yLoc + this.height;
 	}
+	
+	/**
+	 * Returns the upper left corner of the rectangle as a point.
+	 * @return the upper left corner of the rectangle as a point.
+	 */
 	public Point getLocation() {
 		return new Point(this.xLoc, this.yLoc);
 	}
@@ -94,10 +108,60 @@ public class Room{
 				}
 			}
 			Room e = new Room(g, randomX, randomY, rWidth, rHeight);
+			e.hallwayCheck(g);
 			listOfRooms.add(e);
+			
 		}
 	}
 	
+	
+	private void hallwayCheck(Graphics g) {
+		if(this.width * 2 < this.height || this.height * 2 < this.width&& this.height + this.width > 150) {
+			boolean tall = this.height > this.width ? true : false;
+			boolean io = RandomGenerator.getRandomBoolean();
+				if(tall) {
+					if(io) {
+						hallRooms(g, this.getY(), this.getMaxY(), this.xLoc, false, false);
+					}if(!io) {
+						hallRooms(g, this.getY(), this.getMaxY(), this.xLoc, true, false);
+					}
+				}else {
+					if(io) {
+						hallRooms(g, this.getX(), this.getMaxX(), this.yLoc, false, true);
+					}if(!io) {
+						hallRooms(g, this.getX(), this.getMaxX(), this.yLoc, true, true);
+					}
+				}
+		}
+	}
+	
+	
+	public void hallRooms(Graphics g, int starta, int enda, int xory, boolean addorSub, boolean atX) {
+	
+		for(int i = starta; i < enda; i+= 30) {
+			boolean SENTINEL = false;
+			for(Room e: listOfRooms) {
+				if(new Rectangle(xory - 30, i, 15, 15).intersects(e.getArea())){
+					SENTINEL = true;
+					break;
+				}			
+			}
+			if(i + 15 > enda) {
+				SENTINEL = true;
+			}
+			int solid = addorSub ? xory + 30 : xory - 30;
+			if(!SENTINEL) {
+				if(!atX) {
+					listOfRooms.add(new Room(g, solid, i, 15, 15));
+				}else {
+					listOfRooms.add(new Room(g, i, solid, 15, 15));
+				}
+			}else {
+				SENTINEL = false;
+				continue;
+			}
+		}
+	}
 	public static void drawAllRooms(Graphics g) {
 		for(Room e: listOfRooms) {
 			e.draw(g);
@@ -116,7 +180,6 @@ public class Room{
 		height = h;
 		xLoc = x;
 		yLoc = y;
-		area = new Rectangle(x, y, w, h);
 		exits = new ArrayList<Node>();
 		exits.add(new Node(this));//null pointer exception here
 		this.draw(g);

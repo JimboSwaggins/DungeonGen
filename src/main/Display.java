@@ -74,7 +74,7 @@ public class Display {
 	private void gameDraw(){
 		image  = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g2  = image.getGraphics();
-		Room.makeMultipleRooms(g2, 12);
+		Room.makeMultipleRooms(g2, 4);
 		Room.drawAllRooms(g2);
 		for(Room room: Room.listOfRooms) {
 			room.connectRooms(g2);
