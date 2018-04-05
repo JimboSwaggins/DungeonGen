@@ -80,7 +80,7 @@ public class Room{
 				randomX = RandomGenerator.randomInteger(Display.WIDTH/2);
 						
 				for(Room testing:listOfRooms) {
-					System.out.println("checking room " + rWidth +"  "+ rHeight +"  "+ randomX +"  "+ randomY);
+					//System.out.println("checking room " + rWidth +"  "+ rHeight +"  "+ randomX +"  "+ randomY);
 					if(testing.getArea().intersects(new Rectangle(randomX, randomY, rWidth, rHeight))) {
 
 						isValidLocation = false;
@@ -103,36 +103,6 @@ public class Room{
 			e.draw(g);
 		}
 	}
-	/**
-	 * Generates a room at a random location with a random width and height.
-	 * @param g The Graphics unit to draw the room.
-	 */
-	public Room(Graphics g){
-		width = RandomGenerator.randomInteger(40, 175);
-		height = RandomGenerator.randomInteger(40, 175);
-		xLoc = RandomGenerator.randomInteger(20, 325);
-		yLoc = RandomGenerator.randomInteger(20, 325);
-		area = new Rectangle(xLoc, yLoc, width, height);
-		this.draw(g);
-	}
-	
-	/**
-	 * Generates a room at a specified location with a random width and height.
-	 * @param g The Graphics unit to draw the room.
-	 * @param x The x-Location of the room.
-	 * @param y The y-Location of the room.
-	 */
-	public Room(Graphics g, int x, int y) {
-		width = RandomGenerator.randomInteger(40, 175);
-		height = RandomGenerator.randomInteger(40, 175);
-		xLoc = x;
-		yLoc = y;
-		exits.add(new Node(this));
-		area = new Rectangle(x, y, width, height);
-		this.draw(g);
-	}
-	
-	
 	/**
 	 * Generates a room at a specified location with a specified width and height.
 	 * @param g The Graphics unit to draw the room.
