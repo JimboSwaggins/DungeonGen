@@ -31,15 +31,6 @@ public class Node {
 		this.isConnected = true;
 	}
 	public Node addNode(Graphics g) {
-		/*int whichSide = RandomGenerator.randomInteger(3);
-		int xy = -1; //0 is x axis, 1 is y axis
-		switch(whichSide) {
-			case 0: xy = 1; break;
-			case 1: xy = 0; break;
-			case 2: xy = 1; break;
-			case 3: xy = 0; break;
-			default: System.out.println("Error, cannot find a side"); break;
-		}*/
 		Node n = null;
 		 for (Room room: Room.listOfRooms){
 			 n = new Node(room);
@@ -64,17 +55,7 @@ public class Node {
 	}
 	
 	public void growNode(Graphics g) {
-		/*int whichSide = RandomGenerator.randomInteger(3);
-		int xy = -1; //0 is x axis, 1 is y axis
-		switch(whichSide) {
-			case 0: xy = 1; break;
-			case 1: xy = 0; break;
-			case 2: xy = 1; break;
-			case 3: xy = 0; break;
-			default: System.out.println("Error, cannot find a side"); break;
-		}*/
-		
-		 for (Room room: Room.listOfRooms){
+		for (Room room: Room.listOfRooms){
 			 int minXX = parent.getX() > room.getX() ? parent.getX() : room.getX();
 			 int maxXX = parent.getMaxX() > room.getMaxX() ? room.getMaxX() : parent.getMaxX();
 			 int minYY = parent.getY() > room.getY() ? parent.getY() : room.getY();
