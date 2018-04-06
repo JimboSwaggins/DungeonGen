@@ -11,13 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-
-
 public class Display {
 	public JPanel drawBoard;
 	private BufferedImage image;
 
-	
 	private Graphics g2;
 	
 	public static final int HEIGHT = 500;
