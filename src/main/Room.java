@@ -140,8 +140,9 @@ public class Room{
 	
 		for(int i = starta; i < enda; i+= 30) {
 			boolean SENTINEL = false;
+			int solid = addorSub ? xory + 30 : xory - 30;
 			for(Room e: listOfRooms) {
-				if(new Rectangle(xory - 30, i, 15, 15).intersects(e.getArea())){
+				if(new Rectangle(solid, i, 15, 15).intersects(e.getArea())){
 					SENTINEL = true;
 					break;
 				}			
@@ -149,7 +150,7 @@ public class Room{
 			if(i + 15 > enda) {
 				SENTINEL = true;
 			}
-			int solid = addorSub ? xory + 30 : xory - 30;
+			
 			if(!SENTINEL) {
 				if(!atX) {
 					listOfRooms.add(new Room(g, solid, i, 15, 15));
