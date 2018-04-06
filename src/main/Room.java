@@ -193,7 +193,9 @@ public class Room{
 	
 	
 	public void connectRooms(Graphics g){
-		getExits().get(0).growNode(g);
+		//getExits().get(0).growNode(g);
+
+		getExits().get(0).buildNode(g);
 	}
 	
 }
