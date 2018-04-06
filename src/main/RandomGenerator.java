@@ -24,7 +24,7 @@ public class RandomGenerator {
 	}
 	
 	
-	public boolean randomBoolean() {
+	public static boolean randomBoolean() {
 		boolean temp = false;
 		if(Math.random() > 0.5) {
 			temp = true;
