@@ -43,8 +43,14 @@ public class Node {
 			 if(minXX <= maxXX){//if rooms have x range where path can be
 				this.xLoc = (minXX + maxXX)/2; //xlocs are same
 				n.xLoc = (minXX + maxXX)/2;
-				//sets lines at edges of grid
-				if(Math.abs(this.parent.getY()-room.getMaxY()) < Math.abs(this.parent.getMaxY()-room.getY())){
+				
+				if(this.parent.getY()==room.getY()) {//if rooms are the same get rid of line
+					this.yLoc = 0;
+					this.xLoc = 0;
+					n.yLoc = 0;
+					n.xLoc = 0; 
+				}//else put lines at edges of rooms
+				else if(Math.abs(this.parent.getY()-room.getMaxY()) < Math.abs(this.parent.getMaxY()-room.getY())){
 					this.yLoc = this.parent.getY();
 					 n.yLoc = room.getMaxY();
 				}else {
@@ -58,33 +64,41 @@ public class Node {
 					}
 				}
 				 
-			 }else if(minYY <= maxYY){
-				 this.yLoc = (minYY + maxYY)/2;
-				 n.yLoc = (minYY+maxYY)/2;
-				 
-				 if(Math.abs(this.parent.getX()-room.getMaxX()) < Math.abs(this.parent.getMaxX()-room.getX())){
+			}else if(minYY <= maxYY){
+				this.yLoc = (minYY + maxYY)/2;
+				n.yLoc = (minYY+maxYY)/2;
+				
+				if(this.parent.getX()==room.getX()){
+					//if rooms are the same get rid of the line
+					this.yLoc = 0;
+					this.xLoc = 0;
+					n.yLoc = 0;
+					n.xLoc = 0; 
+				}//else put the line on edges of box
+				else if(Math.abs(this.parent.getX()-room.getMaxX()) < Math.abs(this.parent.getMaxX()-room.getX())){
 						this.xLoc = this.parent.getX();
 						 n.xLoc = room.getMaxX();
-					}else {
+				}else {
 						this.xLoc = this.parent.getMaxX();
 						n.xLoc = room.getX();
+				}
+				
+				for (Room roomCheck: Room.listOfRooms) {//make sure line does not intersect
+					if((this.xLoc <= roomCheck.getX() && roomCheck.getMaxX() <= n.xLoc) || (n.xLoc <= roomCheck.getX() && roomCheck.getMaxX() <= this.xLoc)) {
+						this.yLoc = 0;
+						this.xLoc = 0;
+						n.yLoc = 0;
+						n.xLoc = 0; 
 					}
-				 for (Room roomCheck: Room.listOfRooms) {
-					 if(this.xLoc < roomCheck.getX() && roomCheck.getMaxX() < n.xLoc) {
-						 this.yLoc = 0;
-						 this.xLoc = 0;
-						 n.yLoc = 0;
-						 n.xLoc = 0; 
-					 }
-				 }
-			 }else{
-				 this.yLoc = 0;
-				 this.xLoc = 0;
-				 n.yLoc = 0;
-				 n.xLoc = 0;
+				}
+			}else{
+				this.yLoc = 0;
+				this.xLoc = 0;
+				n.yLoc = 0;
+				n.xLoc = 0;
 			 }
-		 }
-		 return n;
+		}
+		return n;
 	}
 	/*
 	 * Cleared some things up in code, minimal changes. 
