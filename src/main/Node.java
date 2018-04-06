@@ -103,18 +103,15 @@ public class Node {
 		}
 		return n;
 	}
-	/*
-	 * Cleared some things up in code, minimal changes. 
-	- minimize nodes rather than maximizing
-	- ensure every room creates a node to find a pair. 
-		each room should pair with one other. 
-		if a room doesn't end up with 2 nodes or a room 
-		has 2 connections with another room, remove one of the connections
-	 	/ create new node to find another path. 
+	/**
+	 * ensure every room creates a node to find a pair. 
+	 * each room should pair with one other. 
+	 * if a room has <2 nodes or 2 connections with another room,
+	 * 	 remove one of the connections or create new node to find another path. 
 	 */
 	
 	
-	public void growNode(Graphics g) {
+	public void growNode(Graphics g) {//obsolete
 		for (Room room: Room.listOfRooms){
 			 int minXX = parent.getX() > room.getX() ? parent.getX() : room.getX();
 			 int maxXX = parent.getMaxX() > room.getMaxX() ? room.getMaxX() : parent.getMaxX();
@@ -145,11 +142,3 @@ public class Node {
 		parent.exits.add(this);//null pointer exception
 	}
 }
-
-//start with node
-//draw line to closest other node without current connection
-///exception: path intersects room mid-path
-///if so, find a path that will not intersect
-
-//check if line intersects another room
-//alt: find x or y coordinate that will only intersect with one other room
