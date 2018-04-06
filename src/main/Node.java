@@ -31,11 +31,14 @@ public class Node {
 		this.isConnected = true;
 	}
 	
+	public void setParent(Room r) {
+		this.parent = r;
+	}
 	
 	public Node addNode(Graphics g) {
-		Node n = null;
+		Node n = new Node(this.parent);
 		 for (Room room: Room.listOfRooms){
-			 n = new Node(room);
+			 n.setParent(room);
 			 int minXX = this.parent.getX() > room.getX() ? this.parent.getX() : room.getX();
 			 int maxXX = this.parent.getMaxX() > room.getMaxX() ? room.getMaxX() : this.parent.getMaxX();
 			 int minYY = this.parent.getY() > room.getY() ? this.parent.getY() : room.getY();
@@ -124,21 +127,26 @@ public class Node {
 				 this.yLoc = parent.getMaxY();
 				 Node n = addNode(g);
 				 connectNodes(n, g);
+				 n.suicide();
 			//for loop to check if other rooms intersect with this
 			 }else if(minYY <= maxYY){
 				 this.yLoc = minYY;
 				 this.xLoc = parent.getMaxX();
 				 Node n = addNode(g);
 				 connectNodes(n, g);
+				 n.suicide();
+				 
 			 }else{
 				 //here, the rooms have no matching stuff
 				 //if this is true for all other rooms we have a problem but for now dw
 			 }
+			 System.out.println(nodeList.size());
 		 }
+		this.suicide();
 	}
 	
 	
-	public void suicide() {
+	public final void suicide() {
 		this.parent.exits.remove(this);
 		this.parent = null;
 		this.xLoc = 0;
