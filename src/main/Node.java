@@ -30,29 +30,52 @@ public class Node {
 		g.drawLine(this.xLoc, this.yLoc, target.getXLoc(), target.getYLoc());
 		this.isConnected = true;
 	}
+	
 	public Node addNode(Graphics g) {
 		Node n = null;
 		 for (Room room: Room.listOfRooms){
 			 n = new Node(room);
-			 int minXX = n.parent.getX() > room.getX() ? n.parent.getX() : room.getX();
-			 int maxXX = n.parent.getMaxX() > room.getMaxX() ? room.getMaxX() : n.parent.getMaxX();
-			 int minYY = n.parent.getY() > room.getY() ? n.parent.getY() : room.getY();
-			 int maxYY = n.parent.getMaxY() > room.getMaxY() ? room.getMaxY() : n.parent.getMaxY();
+			 int minXX = this.parent.getX() > room.getX() ? this.parent.getX() : room.getX();
+			 int maxXX = this.parent.getMaxX() > room.getMaxX() ? room.getMaxX() : this.parent.getMaxX();
+			 int minYY = this.parent.getY() > room.getY() ? this.parent.getY() : room.getY();
+			 int maxYY = this.parent.getMaxY() > room.getMaxY() ? room.getMaxY() : this.parent.getMaxY();
 			 
 			 if(minXX <= maxXX){
-				 n.xLoc = minXX;
-				 n.yLoc = n.parent.getMaxY();
+				 this.xLoc = (minXX + maxXX)/2;
+				 this.yLoc = (this.parent.getY() + this.parent.getMaxY())/2;
+				 n.xLoc = (minXX + maxXX)/2;
+				 n.yLoc = (room.getY()+room.getMaxY())/2;
 			//for loop to check if other rooms intersect with this
 			 }else if(minYY <= maxYY){
-				 n.yLoc = minYY;
-				 n.xLoc = n.parent.getMaxX();
+				 this.yLoc = (minYY + maxYY)/2;
+				 this.xLoc = (this.parent.getX() + this.parent.getMaxX())/2;
+				 n.yLoc = (minYY+maxYY)/2;
+				 n.xLoc = (room.getX()+room.getMaxX())/2;
+				 //n.xLoc = n.parent.getMaxX();
 			 }else{
+				 this.yLoc = 0;
+				 this.xLoc = 0;
+				 n.yLoc = 0;
+				 n.xLoc = 0;
 				 //here, the rooms have no matching stuff
 				 //if this is true for all other rooms we have a problem but for now dw
 			 }
 		 }
 		 return n;
 	}
+	/*
+	 * Cleared some things up in code, minimal changes. 
+	 * In progress:
+	- make paths between nodes straight
+	- minimize nodes rather than maximizing
+	- ensure every room creates a node to find a pair. 
+		each room should pair with one other. 
+		if a room doesn't end up with 2 nodes or a room 
+		has 2 connections with another room, remove one of the connections
+	 	/ create new node to find another path. 
+	should have done by fri.
+	 */
+	
 	
 	public void growNode(Graphics g) {
 		for (Room room: Room.listOfRooms){
