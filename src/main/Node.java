@@ -40,40 +40,63 @@ public class Node {
 			 int minYY = this.parent.getY() > room.getY() ? this.parent.getY() : room.getY();
 			 int maxYY = this.parent.getMaxY() > room.getMaxY() ? room.getMaxY() : this.parent.getMaxY();
 			 
-			 if(minXX <= maxXX){
-				 this.xLoc = (minXX + maxXX)/2;
-				 this.yLoc = (this.parent.getY() + this.parent.getMaxY())/2;
-				 n.xLoc = (minXX + maxXX)/2;
-				 n.yLoc = (room.getY()+room.getMaxY())/2;
-			//for loop to check if other rooms intersect with this
+			 if(minXX <= maxXX){//if rooms have x range where path can be
+				this.xLoc = (minXX + maxXX)/2; //xlocs are same
+				n.xLoc = (minXX + maxXX)/2;
+				//sets lines at edges of grid
+				if(Math.abs(this.parent.getY()-room.getMaxY()) < Math.abs(this.parent.getMaxY()-room.getY())){
+					this.yLoc = this.parent.getY();
+					 n.yLoc = room.getMaxY();
+				}else {
+					this.yLoc = this.parent.getMaxY();
+					n.yLoc = room.getY();
+				}
+				
+				for (Room roomCheck: Room.listOfRooms) {
+					if(this.yLoc <= roomCheck.getY() && roomCheck.getMaxY() <= n.yLoc) {
+						this.yLoc = 0;//this gets rid of line if it crosses
+						this.xLoc = 0;//prob better way to do this
+						n.yLoc = 0;
+						n.xLoc = 0; 
+					}
+				}
+				 
 			 }else if(minYY <= maxYY){
 				 this.yLoc = (minYY + maxYY)/2;
-				 this.xLoc = (this.parent.getX() + this.parent.getMaxX())/2;
 				 n.yLoc = (minYY+maxYY)/2;
-				 n.xLoc = (room.getX()+room.getMaxX())/2;
-				 //n.xLoc = n.parent.getMaxX();
+				 
+				 if(Math.abs(this.parent.getX()-room.getMaxX()) < Math.abs(this.parent.getMaxX()-room.getX())){
+						this.xLoc = this.parent.getX();
+						 n.xLoc = room.getMaxX();
+					}else {
+						this.xLoc = this.parent.getMaxX();
+						n.xLoc = room.getX();
+					}
+				 for (Room roomCheck: Room.listOfRooms) {
+					 if(this.xLoc < roomCheck.getX() && roomCheck.getMaxX() < n.xLoc) {
+						 this.yLoc = 0;
+						 this.xLoc = 0;
+						 n.yLoc = 0;
+						 n.xLoc = 0; 
+					 }
+				 }
 			 }else{
 				 this.yLoc = 0;
 				 this.xLoc = 0;
 				 n.yLoc = 0;
 				 n.xLoc = 0;
-				 //here, the rooms have no matching stuff
-				 //if this is true for all other rooms we have a problem but for now dw
 			 }
 		 }
 		 return n;
 	}
 	/*
 	 * Cleared some things up in code, minimal changes. 
-	 * In progress:
-	- make paths between nodes straight
 	- minimize nodes rather than maximizing
 	- ensure every room creates a node to find a pair. 
 		each room should pair with one other. 
 		if a room doesn't end up with 2 nodes or a room 
 		has 2 connections with another room, remove one of the connections
 	 	/ create new node to find another path. 
-	should have done by fri.
 	 */
 	
 	
