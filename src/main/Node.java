@@ -31,6 +31,7 @@ public class Node {
 		this.isConnected = true;
 	}
 	
+	
 	public Node addNode(Graphics g) {
 		Node n = null;
 		 for (Room room: Room.listOfRooms){
@@ -60,7 +61,10 @@ public class Node {
 				
 				for (Room roomCheck: Room.listOfRooms) {
 					if(this.yLoc <= roomCheck.getY() && roomCheck.getMaxY() <= n.yLoc) {
-						continue;
+						this.yLoc = 0;
+						this.xLoc = 0;
+						n.yLoc = 0;
+						n.xLoc = 0; 
 					}
 				}
 				 
@@ -133,6 +137,20 @@ public class Node {
 		 }
 	}
 	
+	
+	public void suicide() {
+		this.parent.exits.remove(this);
+		this.parent = null;
+		this.xLoc = 0;
+		this.yLoc = 0;
+		nodeList.remove(this);
+		try {
+			this.finalize();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public Node(Room connection) {
 		parent = connection;
 		nodeList.add(this);
