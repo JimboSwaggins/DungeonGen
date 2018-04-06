@@ -108,7 +108,7 @@ public class Room{
 				}
 			}
 			Room e = new Room(g, randomX, randomY, rWidth, rHeight);
-			e.hallwayCheck(g);
+			//e.hallwayCheck(g);
 			listOfRooms.add(e);
 			
 		}
