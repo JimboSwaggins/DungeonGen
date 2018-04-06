@@ -54,10 +54,7 @@ public class Node {
 				
 				for (Room roomCheck: Room.listOfRooms) {
 					if(this.yLoc <= roomCheck.getY() && roomCheck.getMaxY() <= n.yLoc) {
-						this.yLoc = 0;//this gets rid of line if it crosses
-						this.xLoc = 0;//prob better way to do this
-						n.yLoc = 0;
-						n.xLoc = 0; 
+						continue;
 					}
 				}
 				 
