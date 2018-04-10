@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
 public class Display {
@@ -22,8 +23,9 @@ public class Display {
 	/**
 	 * Creates and shows the GUI
 	 */
+	public static int numOfRoomsToMake;
 	public void createAndShowGUI(){
-		
+		numOfRoomsToMake = 1;
 		JFrame mainWindow = new JFrame();
 		//mainWindow.setLayout(new GridBagLayout());
 		//GridBagConstraints g = new GridBagConstraints();
@@ -34,12 +36,18 @@ public class Display {
 		mainWindow.add(drawBoard);
 		drawBoard.setVisible(true);
 	
-		
+		JTextArea info = new JTextArea();
+		info.setLocation(0, 0);
+		info.setColumns(4);
+		info.setRows(1);
+		drawBoard.add(info);
 		JButton Draw = new JButton();
 		Draw.addActionListener(new ActionListener() { 
 			  public void actionPerformed(ActionEvent e) { 
-				    
-					gameDraw();
+				    String benis = info.getText();
+					numOfRoomsToMake = Integer.parseInt(benis);
+				    gameDraw();
+					
 				  } 
 				});
 		
@@ -71,7 +79,7 @@ public class Display {
 	private void gameDraw(){
 		image  = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g2  = image.getGraphics();
-		Room.makeMultipleRooms(g2, 12);
+		Room.makeMultipleRooms(g2, numOfRoomsToMake);
 		Room.drawAllRooms(g2);
 		for(Room room: Room.listOfRooms) {
 			room.connectRooms(g2);
