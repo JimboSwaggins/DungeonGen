@@ -77,13 +77,6 @@ public class Room{
 				continue;
 			}
 			
-			for(Room e:listOfRooms) {
-				if(e.getArea().contains(new Point(randomX, randomY))) {
-					isValidLocation = false;
-				}	
-			}if(!isValidLocation) {
-				continue;
-			}
 			int rWidth = 0;
 			int rHeight = 0;
 			while(true) {
