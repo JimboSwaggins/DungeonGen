@@ -68,7 +68,7 @@ public class Display {
 	public Display(){
 		createAndShowGUI();
 		try {
-			Loot.loadPrefix("LootTable.txt");
+			Loot.loadPrefix();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

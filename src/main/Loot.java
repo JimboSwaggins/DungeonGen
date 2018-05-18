@@ -21,10 +21,10 @@ public class Loot {
 		
 	}
 	
-	public static void loadPrefix(String file) throws IOException {
+	public static void loadPrefix() throws IOException {
 
         // The name of the file to open.
-        String fileName = file;
+        String fileName = ".\\bin\\main\\LootTable.txt";
 
         // This will reference one line at a time
         String line = null;
