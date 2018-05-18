@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -66,6 +67,12 @@ public class Display {
 	
 	public Display(){
 		createAndShowGUI();
+		try {
+			Loot.loadPrefix("LootTable.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public static void main(String[] args){
 		new Display();

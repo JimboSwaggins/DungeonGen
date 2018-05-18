@@ -10,8 +10,9 @@ public class Furniture {
 	private int width;
 	private int height;
 	
-	private Room Parent;
+	private Room parent;
 	
+	public int rarity;
 	
 	
 	public int getX() {return this.xLocation;}
@@ -23,10 +24,11 @@ public class Furniture {
 	public int getHeight(){return this.height;}
 	
 	public Room getParent() {
-		return this.Parent;
+		return this.parent;
 	}
 	
-	public Furniture() {
+	public Furniture(int Rarity) {
+		this.rarity = Rarity;
 		
 	}
 	
