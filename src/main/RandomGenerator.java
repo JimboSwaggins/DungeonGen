@@ -23,6 +23,10 @@ public class RandomGenerator {
 		return (int)(Math.random() * (max - min) + min);
 	}
 	
+	public static int d100() {
+		return (int)(Math.random() * 100);
+	}
+	
 	
 	public static boolean randomBoolean() {
 		boolean temp = false;

@@ -100,6 +100,8 @@ public class Room{
 					break;
 				}
 			}
+			
+			
 			Room e = new Room(g, randomX, randomY, rWidth, rHeight);
 			//e.hallwayCheck(g);
 			listOfRooms.add(e);
@@ -129,6 +131,12 @@ public class Room{
 	}
 	
 	
+	
+	public void populateRoom(int numOfFurniture) {
+		for(int i = 0; i < numOfFurniture;i++) {
+			
+		}
+	}
 	public void hallRooms(Graphics g, int starta, int enda, int xory, boolean addorSub, boolean atX) {
 	
 		for(int i = starta; i < enda; i+= 30) {
