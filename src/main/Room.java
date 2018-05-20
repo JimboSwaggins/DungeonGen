@@ -110,7 +110,7 @@ public class Room{
 	}
 	
 	
-	private void hallwayCheck(Graphics g) {
+	/*private void hallwayCheck(Graphics g) {
 		if(this.width * 2 < this.height || this.height * 2 < this.width&& this.height + this.width > 150) {
 			boolean tall = this.height > this.width ? true : false;
 			boolean io = RandomGenerator.randomBoolean();
@@ -128,7 +128,7 @@ public class Room{
 					}
 				}
 		}
-	}
+	}*/
 	
 	
 	

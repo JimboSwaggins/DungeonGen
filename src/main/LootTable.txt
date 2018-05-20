@@ -1,9 +1,3 @@
-asdfa\
-asdf
-asfdas
-fas
-fas
-ff
-ccccccccccccc
-asdasdc
-acdaasdfasfde
+[MATERIAL:IRON:GREY:30:40]
+[MATERIAL:FLESH:RED:10:50]
+[MATERIAL:GOLD:YELLOW:70:50]
