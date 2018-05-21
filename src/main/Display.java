@@ -68,10 +68,11 @@ public class Display {
 	public Display(){
 		createAndShowGUI();
 		try {
-			LoadAllObjects l = new LoadAllObjects();
 			LoadAllObjects.loadMaterials();
-			LoadAllObjects.loadMaterial("IRON");
-			LoadAllObjects.loadMaterial("GOLD");
+			LoadAllObjects.loadWeapons();
+			LoadAllObjects.getMaterial("IRON");
+			LoadAllObjects.getMaterial("GOLD");
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
