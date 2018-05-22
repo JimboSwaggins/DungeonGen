@@ -32,6 +32,8 @@ public class Furniture {
 		
 	}
 	
+	
+	
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
 		g.fillRect(xLocation, yLocation, width, height);

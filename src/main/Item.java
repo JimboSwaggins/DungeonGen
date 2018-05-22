@@ -2,23 +2,17 @@ package main;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class Weapon {
+public class Item {
 	public String name;
 	public String type;
-	
 	public int value;
+	
 	public Material material;
-	public HashMap<Material, Integer> matsAndWeights;
+	public double volume;
 	
 	
-	public int getWeaponValue() {
-		return this.value * this.material.getMaterialValue();
-	}
-	
-	public Weapon(ArrayList<String> toInject) {
-		matsAndWeights  = new HashMap<Material, Integer>();
+	public Item(ArrayList<String> toInject) {
 		while(toInject.size() > 0) {
 			int toRemove = -1;
 			for(int i = 0; i < toInject.size(); i++) {
@@ -30,8 +24,8 @@ public class Weapon {
 					this.value = Integer.parseInt(toInject.get(i).replaceAll("VALUE:", ""));
 					toRemove = i;
 					break;
-				}if(toInject.get(i).contains("WEAPON:")) {
-					this.name = toInject.get(i).replaceAll("WEAPON:", "");
+				}if(toInject.get(i).contains("ITEM:")) {
+					this.name = toInject.get(i).replaceAll("ITEM", "");
 					toRemove = i;
 					break;
 				}
@@ -50,13 +44,5 @@ public class Weapon {
 		}
 		System.out.println("Successfully Loaded " + this.toString());
 	}
-	
-	
-
-	
-	public String toString() {
-		return "It is a " + this.name + " made of " + this.material.getName() + " with a value of " + getWeaponValue();
-	}
-	
 	
 }

@@ -1,8 +1,6 @@
 package main;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Material {
 	private double density;
@@ -22,6 +20,7 @@ public class Material {
 		while(toInject.size() > 0) {
 			int toRemove = -1;
 			for(int i = 0; i < toInject.size(); i++) {
+				
 				if(toInject.get(i).contains("VALUE:")) {
 					this.valueMult = Integer.parseInt(toInject.get(i).replaceAll("VALUE:", ""));
 					toRemove = i;
@@ -31,8 +30,8 @@ public class Material {
 					toRemove = i;
 					break;
 				}
-				if(toInject.get(i).contains("NAME:")) {
-					this.name = toInject.get(i).replaceAll("NAME:", "");
+				if(toInject.get(i).contains("MATERIAL:")) {
+					this.name = toInject.get(i).replaceAll("MATERIAL:", "");
 					toRemove = i;
 					break;
 				}if(toInject.get(i).contains("DENSITY:")) {

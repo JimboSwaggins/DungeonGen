@@ -5,13 +5,18 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
+
+import org.objectweb.asm.signature.SignatureReader;
 
 public class Display {
 	public JPanel drawBoard;
@@ -65,6 +70,12 @@ public class Display {
 
 	}
 	
+	
+	public void generateNewClass() {
+		
+	
+	}
+	
 	public Display(){
 		createAndShowGUI();
 		try {
@@ -72,6 +83,8 @@ public class Display {
 			LoadAllObjects.loadWeapons();
 			LoadAllObjects.getMaterial("IRON");
 			LoadAllObjects.getMaterial("GOLD");
+			
+			generateNewClass();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

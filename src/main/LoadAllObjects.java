@@ -29,6 +29,47 @@ public class LoadAllObjects {
 		return null;
 	}
 
+	public static void loadItems() throws IOException{
+		String fileName = ".\\bin\\main\\ItemTable.txt";
+		String line = null;
+		
+		try {
+			FileReader fileReader = 
+					new FileReader(fileName);
+			BufferedReader bufferedReader = 
+					new BufferedReader(fileReader);
+			boolean isParsing = false;
+			ArrayList<String> weaponMats = new ArrayList<String>();
+			while((line = bufferedReader.readLine()) != null) {
+				//This begins reading for a new weapon type
+				if(line.contains("ITEM:")) {
+					isParsing = true;
+				}
+				
+				//This begins loading the variables to prepare for injection
+				if(isParsing) {
+					weaponMats.add(line);
+				}
+				
+				
+				//This should initialize a new weapon type and then add the weapon to the array,
+				//before beginning to create the next listed weapon.
+				if(isParsing&&line.contains("/ITEM")) {
+					isParsing = false;
+					new Weapon(weaponMats);
+					weaponMats.clear();
+				}
+			}
+			bufferedReader.close();
+		}
+		catch(FileNotFoundException ex) {
+			System.out.println("Unable to open file '" + fileName + "'");                
+		}
+		catch(IOException ex) {
+			System.out.println("Error reading file '" 	+ fileName + "'");
+		}
+	}
+	
 	public static void loadWeapons() throws IOException{
 		String fileName = ".\\bin\\main\\WeaponTable.txt";
 		String line = null;
