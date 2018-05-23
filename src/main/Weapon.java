@@ -17,8 +17,37 @@ public class Weapon {
 		return this.value * this.material.getMaterialValue();
 	}
 	
-	public Weapon(ArrayList<String> toInject) {
-		matsAndWeights  = new HashMap<Material, Integer>();
+	
+	public Material rollMaterial(ArrayList<String> toInject) throws IOException {
+		boolean isParsing = false;
+		ArrayList<Dual> matList = new ArrayList<Dual>();
+		Material m = null;
+		for(int i = 0; i < toInject.size(); i++) {
+			if(toInject.get(i).contains("MATERIALS")) {
+				isParsing = true;
+				continue;
+			}
+			if(isParsing&&(toInject.get(i).contains("/WEAPON")||toInject.get(i).contains("/MATERIAL"))){
+				isParsing = false;
+				break;
+			}if(isParsing){
+				String[] a = toInject.get(i).split(":");
+				matList.add(new Dual(a[0], Integer.parseInt(a[1].replaceAll(":", ""))));
+			}
+		}
+		int max = matList.get(matList.size() - 1).getSlotTwo();
+		int roll = RandomGenerator.randomInteger(max);
+		for(int j = 0; j < matList.size() - 1;j++) {
+			if(roll >= (int)matList.get(j).getSlotTwo()&&roll < (int)matList.get(j + 1).getSlotTwo()) {
+					m =  LoadAllObjects.getMaterial(matList.get(j).getSlotOne());
+			}
+		}if(m == null) {
+			m = LoadAllObjects.getMaterial(matList.get(matList.size() - 1).getSlotOne());
+		}
+		return m;
+	}
+ 	public Weapon(ArrayList<String> toInject) {
+		
 		while(toInject.size() > 0) {
 			int toRemove = -1;
 			for(int i = 0; i < toInject.size(); i++) {
@@ -36,17 +65,16 @@ public class Weapon {
 					break;
 				}
 			}
+			try {
+				this.material = rollMaterial(toInject);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			if(toRemove == -1) {
 				break;
 			}else {
 				toInject.remove(toInject.get(toRemove));		
 			}
-		}
-		try {
-			this.material = LoadAllObjects.getMaterial("IRON");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		System.out.println("Successfully Loaded " + this.toString());
 	}

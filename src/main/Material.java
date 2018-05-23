@@ -5,9 +5,20 @@ import java.util.ArrayList;
 public class Material {
 	private double density;
 	private double temperature;
+	private double meltingPoint;
+	private double vaporPoint;
 	private String color;
 	private String name;
 	private int valueMult;
+	
+	
+	public double getDensity() {
+		return this.density;
+	}
+	
+	public double getTemperature() {
+		return this.temperature;
+	}
 	
 	public int getMaterialValue() {
 		return this.valueMult;

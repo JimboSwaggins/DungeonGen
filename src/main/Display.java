@@ -1,14 +1,14 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,13 +16,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
-import org.objectweb.asm.signature.SignatureReader;
-
 public class Display {
 	public JPanel drawBoard;
 	private BufferedImage image;
-
+	private JFrame mainWindow;
 	private Graphics g2;
+	private JTextArea info;
+	private JButton draw;
+	
 	
 	public static final int HEIGHT = 500;
 	public static final int WIDTH = 750;
@@ -32,23 +33,28 @@ public class Display {
 	public static int numOfRoomsToMake;
 	public void createAndShowGUI(){
 		numOfRoomsToMake = 1;
-		JFrame mainWindow = new JFrame();
-		//mainWindow.setLayout(new GridBagLayout());
-		//GridBagConstraints g = new GridBagConstraints();
+		mainWindow = new JFrame();
+		mainWindow.setLayout(new GridBagLayout());
+		GridBagConstraints g = new GridBagConstraints();
 		mainWindow.setSize(HEIGHT, WIDTH);
 		mainWindow.setVisible(true);
-		drawBoard = new JPanel();
-		drawBoard.setSize(HEIGHT, WIDTH);
-		mainWindow.add(drawBoard);
-		drawBoard.setVisible(true);
+		
+		
 	
-		JTextArea info = new JTextArea();
-		info.setLocation(0, 0);
-		info.setColumns(4);
-		info.setRows(1);
-		drawBoard.add(info);
-		JButton Draw = new JButton();
-		Draw.addActionListener(new ActionListener() { 
+		g.gridx = 0;
+		g.gridy = 0;
+		
+		g.weightx = 4;
+		
+		
+		info = new JTextArea();
+		mainWindow.add(info, g);
+		info.setColumns(50);
+		g.gridx = 1;
+		g.gridy = 0;
+		g.weightx = 0;
+		draw = new JButton();
+		draw.addActionListener(new ActionListener() { 
 			  public void actionPerformed(ActionEvent e) { 
 				    String benis = info.getText();
 					numOfRoomsToMake = Integer.parseInt(benis);
@@ -57,13 +63,29 @@ public class Display {
 				  } 
 				});
 		
-		Draw.setLocation(40, 40);
-		Draw.setSize(40, 40);
-		Draw.setMaximumSize(new Dimension(40, 40));
-		Draw.setText("Generate New Dungeon");
-		drawBoard.add(Draw);
+		draw.setLocation(40, 40);
+		draw.setSize(40, 40);
+		draw.setMaximumSize(new Dimension(40, 40));
+		draw.setText("Generate New Dungeon");
+		mainWindow.add(draw, g);
 		
-		mainWindow.setResizable(false);
+		
+		g.gridx = 0;
+		g.gridy = 1;
+		g.gridwidth = 5;
+		g.weightx = 4;
+		g.weighty = 4;
+		g.fill = 1;
+		g.ipadx = 2;
+		g.ipady = 2;
+		drawBoard = new JPanel();
+		drawBoard.setSize(HEIGHT, WIDTH);
+		drawBoard.setMinimumSize(new Dimension(HEIGHT, WIDTH));
+		drawBoard.setBackground(Color.BLACK);
+		mainWindow.add(drawBoard, g);
+		drawBoard.setVisible(true);
+		
+		mainWindow.pack();
 		mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		mainWindow.setVisible(true);
@@ -71,9 +93,8 @@ public class Display {
 	}
 	
 	
-	public void generateNewClass() {
+	public void createNewMaterial() {
 		
-	
 	}
 	
 	public Display(){
@@ -83,8 +104,6 @@ public class Display {
 			LoadAllObjects.loadWeapons();
 			LoadAllObjects.getMaterial("IRON");
 			LoadAllObjects.getMaterial("GOLD");
-			
-			generateNewClass();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

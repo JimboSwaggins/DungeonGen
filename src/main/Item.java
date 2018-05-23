@@ -36,12 +36,8 @@ public class Item {
 				toInject.remove(toInject.get(toRemove));		
 			}
 		}
-		try {
-			this.material = LoadAllObjects.getMaterial("IRON");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.material = LoadAllObjects.getMaterial("IRON");
+		
 		System.out.println("Successfully Loaded " + this.toString());
 	}
 	

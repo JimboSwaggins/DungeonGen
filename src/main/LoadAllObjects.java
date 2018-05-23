@@ -20,9 +20,9 @@ public class LoadAllObjects {
 	}
 
 	
-	public static Material getMaterial(String toFind) throws IOException {
+	public static Material getMaterial(String toFind){
 		for(Material e:listOfMaterials) {
-			if(e.getName().equals(toFind)) {
+			if(e.getName().equalsIgnoreCase(toFind)) {
 				return e;
 			}
 		}
