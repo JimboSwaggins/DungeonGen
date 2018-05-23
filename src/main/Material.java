@@ -61,7 +61,7 @@ public class Material {
 				toInject.remove(toInject.get(toRemove));		
 			}
 		}
-		System.out.println("Successfully Loaded " + this.toString());
+		//System.out.println("Successfully Loaded " + this.toString());
 	}
 	
 	public String toString() {
