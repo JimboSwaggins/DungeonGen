@@ -9,9 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -222,7 +224,7 @@ public class Display {
 		saveButton.setText("Save and Exit");
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String fileName = ".\\src\\main\\MaterialTable.txt";
+				String fileName = ".\\tables\\MaterialTable.txt";
 				try(FileWriter fw = new FileWriter(fileName, true);
 					    BufferedWriter bw = new BufferedWriter(fw);
 					    PrintWriter out = new PrintWriter(bw))
@@ -250,9 +252,38 @@ public class Display {
 	public void createNewWeapon() {
 	}
 
-
+	public void populateDirectory() throws IOException, URISyntaxException {
+		//String filePath = Display.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+		//System.out.println(filePath);
+		if(!new File(".\\tables").exists()) {
+			new File(".\\tables").mkdir();
+		}if(!new File(".\\tables\\MaterialTable.txt").exists()) {
+			new File(".\\tables\\MaterialTable.txt").createNewFile();
+		}
+		if(!new File(".\\tables\\WeaponTable.txt").exists()){
+			new File(".\\tables\\WeaponTable.txt").createNewFile();
+		}
+	}
 	public Display(){
 		createAndShowGUI();
+		try {
+			populateDirectory();
+		} catch (IOException | URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			LoadAllObjects.loadMaterials();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			LoadAllObjects.loadWeapons();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public static void main(String[] args){
 		new Display();

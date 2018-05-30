@@ -34,7 +34,7 @@ public class LoadAllObjects {
 	}
 
 	public static void loadItems() throws IOException{
-		String fileName = ".\\bin\\main\\ItemTable.txt";
+		String fileName = ".\\tables\\ItemTable.txt";
 		String line = null;
 		
 		try {
@@ -75,7 +75,7 @@ public class LoadAllObjects {
 	}
 	
 	public static void loadWeapons() throws IOException{
-		String fileName = ".\\bin\\main\\WeaponTable.txt";
+		String fileName = ".\\tables\\WeaponTable.txt";
 		String line = null;
 		
 		try {
@@ -116,7 +116,7 @@ public class LoadAllObjects {
 	}
 	
 	public static void loadMaterials() throws IOException {
-		String fileName = ".\\bin\\main\\MaterialTable.txt";
+		String fileName = ".\\tables\\MaterialTable.txt";
 
 		String line = null;
 
