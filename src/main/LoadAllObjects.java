@@ -121,10 +121,8 @@ public class LoadAllObjects {
 		String line = null;
 
 		try {
-			FileReader fileReader = 
-					new FileReader(fileName);
-			BufferedReader bufferedReader = 
-					new BufferedReader(fileReader);
+			FileReader fileReader = new FileReader(fileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			boolean isParsing = false;
 			ArrayList<String> properties = new ArrayList<String>();
 			while((line = bufferedReader.readLine()) != null) {

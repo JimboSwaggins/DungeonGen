@@ -15,12 +15,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
+
+import utils.StringAnalyzer;
 
 public class Display {
 	public JPanel drawBoard;
@@ -131,31 +135,47 @@ public class Display {
 		tempWindow.setLayout(new GridBagLayout());
 		GridBagConstraints g = new GridBagConstraints();
 		
+		
+		//Default Constraints
 		g.gridx = 0;
 		g.gridy = 0;
 		g.ipadx = 50;
 		g.ipady = 10;
 		g.fill = 1;
+		
+		
+		//Material Name Input
 		JTextArea inputName = new JTextArea();
 		inputName.setColumns(30);
 		inputName.setRows(1);
+		inputName.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		tempWindow.add(inputName, g);
+		
+		//Material Name Label
 		g.gridx = 1;
 		g.gridy = 0;
+		
 		JLabel nameLabel = new JLabel();
 		nameLabel.setText("Material Name");
 		
 		tempWindow.add(nameLabel, g);
 		
+		
+		//Material Density Input
 		g.gridx = 0;
 		g.gridy = 1;
+		
 		
 		JTextArea inputDensity = new JTextArea();
 		inputDensity.setColumns(30);
 		inputDensity.setRows(1);
+		inputDensity.setBorder(BorderFactory.createLineBorder(Color.black));
+		
 		tempWindow.add(inputDensity, g);
 		
+		
+		//Material Density Label
 		g.gridx = 1;
 		g.gridy = 1;
 		
@@ -163,16 +183,20 @@ public class Display {
 		densityLabel.setText("Material Density");
 		tempWindow.add(densityLabel, g);
 		
+		
+		//Material Value Input
 		g.gridx = 0;
 		g.gridy = 2;
 		
 		JTextArea inputValue = new JTextArea();
 		inputValue.setColumns(30);
 		inputValue.setRows(1);
+		inputValue.setBorder(BorderFactory.createLineBorder(Color.black));
+		
 		
 		tempWindow.add(inputValue, g);
 		
-		
+		//Material Value Label
 		g.gridx = 1;
 		g.gridy = 2;
 		
@@ -181,16 +205,19 @@ public class Display {
 		tempWindow.add(valueLabel, g);
 		
 		
+		
+		//Material Color Input
 		g.gridx = 0;
 		g.gridy = 3;
 		
 		JTextArea inputColor = new JTextArea();
 		inputColor.setColumns(30);
 		inputColor.setRows(1);
+		inputColor.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		tempWindow.add(inputColor, g);
 		
-		
+		//Material Color Label
 		g.gridx = 1;
 		g.gridy = 3;
 		
@@ -198,16 +225,20 @@ public class Display {
 		colorLabel.setText("Material Color");
 		tempWindow.add(colorLabel, g);
 		
+		
+		
+		//Material Temperature Input
 		g.gridx = 0;
 		g.gridy = 4;
 		
 		JTextArea inputTemp = new JTextArea();
 		inputTemp.setColumns(30);
 		inputTemp.setRows(1);
-		
+		inputTemp.setBorder(BorderFactory.createLineBorder(Color.black));
 		tempWindow.add(inputTemp, g);
 		
 		
+		//Material Temperature Label
 		g.gridx = 1;
 		g.gridy = 4;
 		
@@ -216,7 +247,7 @@ public class Display {
 		tempWindow.add(tempLabel, g);
 		
 		
-		
+		//Save and Exit Button
 		g.gridx = 0;
 		g.gridy = 5;
 		
@@ -229,6 +260,10 @@ public class Display {
 					    BufferedWriter bw = new BufferedWriter(fw);
 					    PrintWriter out = new PrintWriter(bw))
 					{
+					if(StringAnalyzer.containsCharacters(inputDensity.getText())) {
+						JOptionPane.showMessageDialog(tempWindow, "You entered an invalid value into the density box.");
+						return;
+					}
 					out.println("");
 					out.println("MATERIAL:" + inputName.getText());
 					out.println("DENSITY:" + inputDensity.getText());
