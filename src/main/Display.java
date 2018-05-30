@@ -8,7 +8,10 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -133,6 +136,7 @@ public class Display {
 		g.fill = 1;
 		JTextArea inputName = new JTextArea();
 		inputName.setColumns(30);
+		inputName.setRows(1);
 		
 		tempWindow.add(inputName, g);
 		g.gridx = 1;
@@ -146,30 +150,109 @@ public class Display {
 		g.gridy = 1;
 		
 		JTextArea inputDensity = new JTextArea();
-		tempWindow.add(arg0)
+		inputDensity.setColumns(30);
+		inputDensity.setRows(1);
+		tempWindow.add(inputDensity, g);
 		
+		g.gridx = 1;
+		g.gridy = 1;
+		
+		JLabel densityLabel = new JLabel();
+		densityLabel.setText("Material Density");
+		tempWindow.add(densityLabel, g);
+		
+		g.gridx = 0;
+		g.gridy = 2;
+		
+		JTextArea inputValue = new JTextArea();
+		inputValue.setColumns(30);
+		inputValue.setRows(1);
+		
+		tempWindow.add(inputValue, g);
+		
+		
+		g.gridx = 1;
+		g.gridy = 2;
+		
+		JLabel valueLabel = new JLabel();
+		valueLabel.setText("Material Base Value");
+		tempWindow.add(valueLabel, g);
+		
+		
+		g.gridx = 0;
+		g.gridy = 3;
+		
+		JTextArea inputColor = new JTextArea();
+		inputColor.setColumns(30);
+		inputColor.setRows(1);
+		
+		tempWindow.add(inputColor, g);
+		
+		
+		g.gridx = 1;
+		g.gridy = 3;
+		
+		JLabel colorLabel = new JLabel();
+		colorLabel.setText("Material Color");
+		tempWindow.add(colorLabel, g);
+		
+		g.gridx = 0;
+		g.gridy = 4;
+		
+		JTextArea inputTemp = new JTextArea();
+		inputTemp.setColumns(30);
+		inputTemp.setRows(1);
+		
+		tempWindow.add(inputTemp, g);
+		
+		
+		g.gridx = 1;
+		g.gridy = 4;
+		
+		JLabel tempLabel = new JLabel();
+		tempLabel.setText("Material Temp");
+		tempWindow.add(tempLabel, g);
+		
+		
+		
+		g.gridx = 0;
+		g.gridy = 5;
+		
+		JButton saveButton = new JButton();
+		saveButton.setText("Save and Exit");
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String fileName = ".\\src\\main\\MaterialTable.txt";
+				try(FileWriter fw = new FileWriter(fileName, true);
+					    BufferedWriter bw = new BufferedWriter(fw);
+					    PrintWriter out = new PrintWriter(bw))
+					{
+					out.println("");
+					out.println("MATERIAL:" + inputName.getText());
+					out.println("DENSITY:" + inputDensity.getText());
+					out.println("TEMP:" + inputTemp.getText());
+					out.println("COLOR:" + inputColor.getText());
+					out.println("VALUE:" + inputValue.getText());
+					out.println("/MATERIAL");
+					
+					} catch (IOException e1) {
+					    e1.printStackTrace();
+					}
+			}
+		});
+		
+		tempWindow.add(saveButton, g);
 		tempWindow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		tempWindow.pack();
 		tempWindow.setVisible(true);
 	}
 
 	public void createNewWeapon() {
-
 	}
 
 
 	public Display(){
 		createAndShowGUI();
-		try {
-			LoadAllObjects.loadMaterials();
-			LoadAllObjects.loadWeapons();
-			LoadAllObjects.getMaterial("IRON");
-			LoadAllObjects.getMaterial("GOLD");
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	public static void main(String[] args){
 		new Display();

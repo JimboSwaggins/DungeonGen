@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import customException.MaterialNotFoundException;
+
 public class LoadAllObjects {
 
 	public String Name;
@@ -20,13 +22,15 @@ public class LoadAllObjects {
 	}
 
 	
-	public static Material getMaterial(String toFind){
+	public static Material getMaterial(String toFind) throws MaterialNotFoundException{
 		for(Material e:listOfMaterials) {
 			if(e.getName().equalsIgnoreCase(toFind)) {
+				System.out.println("Successfully retrieved material " + e.getName());
 				return e;
 			}
 		}
-		return null;
+		throw new MaterialNotFoundException();
+		
 	}
 
 	public static void loadItems() throws IOException{

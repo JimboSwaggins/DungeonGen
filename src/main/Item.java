@@ -1,44 +1,58 @@
 package main;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 public class Item {
-	public String name;
-	public String type;
-	public int value;
+	protected String name;
+	protected String type;
+	
+	protected int value;
+	protected int totalValue;
+	
 	
 	public Material material;
-	public double volume;
+	
+	public QUALITY itemQuality;
 	
 	
-	public Item(ArrayList<String> toInject) {
-		while(toInject.size() > 0) {
-			int toRemove = -1;
-			for(int i = 0; i < toInject.size(); i++) {
-				if(toInject.get(i).contains("TYPE:")) {
-					this.type = toInject.get(i).replaceAll("TYPE:", "");
-					toRemove = i;
-					break;
-				}if(toInject.get(i).contains("VALUE:")) {
-					this.value = Integer.parseInt(toInject.get(i).replaceAll("VALUE:", ""));
-					toRemove = i;
-					break;
-				}if(toInject.get(i).contains("ITEM:")) {
-					this.name = toInject.get(i).replaceAll("ITEM", "");
-					toRemove = i;
-					break;
-				}
-			}
-			if(toRemove == -1) {
-				break;
-			}else {
-				toInject.remove(toInject.get(toRemove));		
-			}
-		}
-		this.material = LoadAllObjects.getMaterial("IRON");
-		
-		System.out.println("Successfully Loaded " + this.toString());
+	
+	public int getTotalValue() {
+		return this.value * this.material.getMaterialValue()  * this.getQualityMultiplier();
+	}
+	public int getValue() {
+		return this.value;
 	}
 	
+	public String getType() {
+		return this.type;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public enum QUALITY{
+		BAD, POOR, AVERAGE, QUALITY, MASTERCRAFTED
+		
+	}
+	
+	public String getValuetoString() {
+		return "The " + this.name + "is worth " + this.getTotalValue() + " gold.";
+	}
+	
+	public int getQualityMultiplier() {	
+		switch(itemQuality) {	
+		case BAD:
+			return 1;
+		case POOR:
+			return 2;
+		case AVERAGE: 
+			return 4;
+		case QUALITY:
+			return 6;
+		case MASTERCRAFTED:
+			return 10;
+		default:
+			return -1;
+				
+		}
+	}
 }

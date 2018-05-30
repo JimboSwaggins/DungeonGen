@@ -4,21 +4,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Weapon {
-	public String name;
-	public String type;
+import customException.MaterialNotFoundException;
+
+public class Weapon extends Item{	
 	
-	public int value;
-	public Material material;
 	public HashMap<Material, Integer> matsAndWeights;
 	
 	
 	public int getWeaponValue() {
-		return this.value * this.material.getMaterialValue();
+		return this.value * this.material.getMaterialValue() * this.getQualityMultiplier();
 	}
 	
 	
-	public Material rollMaterial(ArrayList<String> toInject) throws IOException {
+	public Material rollMaterial(ArrayList<String> toInject) throws IOException, MaterialNotFoundException {
 		boolean isParsing = false;
 		ArrayList<Dual> matList = new ArrayList<Dual>();
 		Material m = null;
@@ -67,7 +65,7 @@ public class Weapon {
 			}
 			try {
 				this.material = rollMaterial(toInject);
-			} catch (IOException e) {
+			} catch (IOException | MaterialNotFoundException e) {
 				e.printStackTrace();
 			}
 			if(toRemove == -1) {
@@ -78,10 +76,8 @@ public class Weapon {
 		}
 		//System.out.println("Successfully Loaded " + this.toString());
 	}
-	
-	
 
-	
+ 	
 	public String toString() {
 		return "It is a " + this.name + " made of " + this.material.getName() + " with a value of " + getWeaponValue();
 	}
