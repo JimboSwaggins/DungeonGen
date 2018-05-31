@@ -260,6 +260,7 @@ public class Display {
 					    BufferedWriter bw = new BufferedWriter(fw);
 					    PrintWriter out = new PrintWriter(bw))
 					{
+					
 					if(StringAnalyzer.containsCharacters(inputDensity.getText())) {
 						JOptionPane.showMessageDialog(tempWindow, "You entered an invalid value into the density box.");
 						return;

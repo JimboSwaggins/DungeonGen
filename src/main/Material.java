@@ -40,12 +40,19 @@ public class Material {
 					break;
 				}
 				if(toInject.get(i).contains("MATERIAL:")) {
-					this.name = toInject.get(i).replaceAll("MATERIAL:", "");
-					toRemove = i;
+					if(!toInject.get(i).replaceAll("MATERIAL:", "").equals(null)) {
+						this.name = toInject.get(i).replaceAll("MATERIAL:", "");
+						toRemove = i;
+					}
 					break;
 				}if(toInject.get(i).contains("DENSITY:")) {
-					this.density = Double.parseDouble(toInject.get(i).replaceAll("DENSITY:", ""));
-					toRemove = i;
+					String temp = toInject.get(i).replaceAll("DENSITY:", "");
+					if(!temp.equals("")) {
+						this.density = Double.parseDouble(temp);
+						toRemove = i;
+					}else {
+						this.density = Integer.MIN_VALUE + 1;
+					}
 					break;
 				}if(toInject.get(i).contains("TEMP:")) {
 					this.temperature = Double.parseDouble(toInject.get(i).replaceAll("TEMP:", ""));
@@ -58,8 +65,20 @@ public class Material {
 			}else {
 				toInject.remove(toInject.get(toRemove));		
 			}
+			
+			checkOverNullValues();
 		}
 		System.out.println("Successfully Loaded " + this.toString());
+	}
+	
+	public void checkOverNullValues() {
+		if(this.name == null) {
+			this.name = "MISSING NAME";
+		}if(this.color == null) {
+			this.color = "MISSING COLOR";
+		}if(this.valueMult == 0) {
+			this.valueMult = Integer.MIN_VALUE + 1;
+		}
 	}
 	
 	public String toString() {
