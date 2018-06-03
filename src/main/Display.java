@@ -201,7 +201,7 @@ public class Display {
 	}
 
 	public void clear() {
-		consoleLog.setText("\b");
+		consoleLog.setText("");
 	}
 
 	public static void cprint(String n) {
@@ -225,14 +225,51 @@ public class Display {
 			return;
 		}
 		String[] toRead = lastLine.split(" ");
-		if(lastLine.equals("")) {
-			cprint("You didn't enter anything");
-		}
+
 		if(lastLine.equals("clear")) {
 			clear();
-		}if(lastLine.equals("refresh")) {
+		}if(lastLine.equals("reload")) {
 			LoadAllObjects.refreshDatabases();
 			cprint("Reloaded all tables");
+		}if(lastLine.equals("exit")){
+			mainWindow.dispose();
+			consoleWindow.dispose();
+		}if(toRead.length == 1&&toRead[0].equals("help")) {
+			cprint("clear  -> clears the console log");
+			cprint("reload -> reloads all tables");
+			cprint("exit   -> closes all windows");
+			cprint("list   -> lists all items in a set");
+			cprint("help   -> lists all commands that can be used");
+			cprint("\ntype help + 'command' for more info on it's usage");
+
+
+		}if(toRead.length == 2 && toRead[0].equals("help")) {
+			switch(toRead[1].toLowerCase()) {
+
+			case "help":
+				cprint("you don't get any help for that one bud");
+				break;
+			case "list":
+				cprint("list [parameter]");
+				cprint("valid parameters:");
+				cprint("-m  >> Lists all materials that are currently loaded");
+				break;
+			case "reload":
+				cprint("reloads all tables from file system.");
+				break;
+			case "exit":
+				cprint("closes all windows (probably)");
+				break;
+			case "clear":
+				cprint("clears the console screen. There is no going back from this one.");
+				break;
+				
+			default:
+				cprint("I don't understand");
+			}
+		}
+		if(lastLine.equals("")) {
+			cprint("You didn't enter anything");
 		}
 		if(toRead[0].equals("list")) {
 			if(toRead.length == 1) {
@@ -487,11 +524,11 @@ public class Display {
 							break;
 						}
 					}
-					
+
 					fr.close();
 					br.close();
-					
-				
+
+
 					LineNumberReader br2 = new LineNumberReader(new FileReader(".\\tables\\MaterialTable.txt"));
 					File f = new File(".\\tables\\MaterialTable.txt");
 					File buffer = new File(".\\tables\\MaterialTable.temp");
@@ -511,14 +548,14 @@ public class Display {
 					// ... and finally ...
 					writer.close();
 					br2.close();
-					
+
 					f.delete();
 					if(renameFileExtension(".\\tables\\MaterialTable.temp", "txt")) {
 						System.out.println("File successfully modified");
 					}else {
 						System.out.println("That didn't work." + getFileExtension(".\\tables\\MaterialTable.temp"));
 					}
-				
+
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -532,33 +569,33 @@ public class Display {
 		tempWindow.pack();
 		tempWindow.setVisible(true);
 	}
-	
+
 	//Credit to http://www.rgagnon.com/javadetails/java-0541.html
 	public static boolean renameFileExtension
-	  (String source, String newExtension)
-	  {
-	    String target;
-	    String currentExtension = getFileExtension(source);
+	(String source, String newExtension)
+	{
+		String target;
+		String currentExtension = getFileExtension(source);
 
-	    if (currentExtension.equals("")){
-	      target = source + "." + newExtension;
-	    }
-	    else {
-	      target = source.replaceFirst(Pattern.quote("." +
-	          currentExtension) + "$", Matcher.quoteReplacement("." + newExtension));
+		if (currentExtension.equals("")){
+			target = source + "." + newExtension;
+		}
+		else {
+			target = source.replaceFirst(Pattern.quote("." +
+					currentExtension) + "$", Matcher.quoteReplacement("." + newExtension));
 
-	    }
-	    return new File(source).renameTo(new File(target));
-	  }
+		}
+		return new File(source).renameTo(new File(target));
+	}
 
-	  public static String getFileExtension(String f) {
-	    String ext = "";
-	    int i = f.lastIndexOf('.');
-	    if (i > 0 &&  i < f.length() - 1) {
-	      ext = f.substring(i + 1);
-	    }
-	    return ext;
-	  }
+	public static String getFileExtension(String f) {
+		String ext = "";
+		int i = f.lastIndexOf('.');
+		if (i > 0 &&  i < f.length() - 1) {
+			ext = f.substring(i + 1);
+		}
+		return ext;
+	}
 
 	public void populateDirectory() throws IOException, URISyntaxException {
 		//String filePath = Display.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();

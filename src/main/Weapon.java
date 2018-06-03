@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import customException.MaterialNotFoundException;
+import materialExceptions.MaterialNotFoundException;
 
 public class Weapon extends Item{	
 	
