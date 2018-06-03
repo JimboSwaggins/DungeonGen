@@ -20,7 +20,6 @@ public class LoadAllObjects {
 
 	public LoadAllObjects() {
 	}
-
 	
 	public static Material getMaterial(String toFind) throws MaterialNotFoundException{
 		for(Material e:listOfMaterials) {
@@ -33,6 +32,22 @@ public class LoadAllObjects {
 		
 	}
 
+	
+	public static void refreshDatabases() {
+		listOfMaterials.clear();
+		try {
+			loadMaterials();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static void printMaterials() {
+		for(Material e:listOfMaterials) {
+			Display.cprint(e.toString() + " \n");
+		}
+	}
+	
 	public static void loadItems() throws IOException{
 		String fileName = ".\\tables\\ItemTable.txt";
 		String line = null;

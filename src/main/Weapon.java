@@ -65,7 +65,7 @@ public class Weapon extends Item{
 			}
 			try {
 				this.material = rollMaterial(toInject);
-			} catch (IOException | MaterialNotFoundException e) {
+			} catch (IOException|MaterialNotFoundException e) {
 				e.printStackTrace();
 			}
 			if(toRemove == -1) {

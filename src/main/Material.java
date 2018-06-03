@@ -2,6 +2,8 @@ package main;
 
 import java.util.ArrayList;
 
+import utils.StringAnalyzer;
+
 public class Material {
 	private double density;
 	private double temperature;
@@ -25,6 +27,7 @@ public class Material {
 	public String getName() {
 		return this.name;
 	}
+
 	public Material(ArrayList<String> toInject) {
 		while(toInject.size() > 0) {
 			int toRemove = -1;
@@ -47,7 +50,7 @@ public class Material {
 					break;
 				}if(toInject.get(i).contains("DENSITY:")) {
 					String temp = toInject.get(i).replaceAll("DENSITY:", "");
-					if(!temp.equals("")) {
+					if(!temp.equals("")&&!StringAnalyzer.containsCharacters(temp)) {
 						this.density = Double.parseDouble(temp);
 						toRemove = i;
 					}else {
@@ -55,8 +58,13 @@ public class Material {
 					}
 					break;
 				}if(toInject.get(i).contains("TEMP:")) {
-					this.temperature = Double.parseDouble(toInject.get(i).replaceAll("TEMP:", ""));
-					toRemove = i;
+					String temp = toInject.get(i).replaceAll("TEMP:", "");
+					if(!temp.equals("")&&!StringAnalyzer.containsCharacters(temp)) {
+						this.temperature = Double.parseDouble(temp);
+						toRemove = i;
+					}else {
+						this.temperature = Integer.MIN_VALUE + 1;
+					}
 					break;
 				}
 			}
@@ -68,7 +76,7 @@ public class Material {
 			
 			checkOverNullValues();
 		}
-		System.out.println("Successfully Loaded " + this.toString());
+		//Display.getConsole().append(this.toString() + "\n");
 	}
 	
 	public void checkOverNullValues() {
